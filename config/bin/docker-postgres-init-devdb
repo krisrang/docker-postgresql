@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+/etc/init.d/postgresql start
+
+su postgres -c "createuser -s postgresdev"
+su postgres -c "psql -c \"ALTER ROLE postgresdev PASSWORD 'postgresdev'\""
+su postgres -c "createdb -O postgresdev -EUTF-8 postgresdev"
+
+/etc/init.d/postgresql stop
