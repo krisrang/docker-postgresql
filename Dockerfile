@@ -6,16 +6,21 @@ RUN apt-get update
 RUN apt-get install -y wget language-pack-en
 RUN locale-gen en_US
 
-VOLUME ["/var/lib/postgresql/9.3/main"]
-
 ADD config /
 
 RUN apt-key add /tmp/pgdg-apt-key.asc
 RUN apt-get update
 RUN apt-get install -y pgdg-keyring postgresql-9.3 postgresql-contrib-9.3 pwgen
 
-ADD config-stage2 /
+# Create data dir
+RUN service postgresql stop
+RUN mkdir -p /data/main
+RUN chown postgres:postgres /data/*
+RUN chmod 700 /data/main
+RUN su postgres --command "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
 
+# Create user
+ADD config-stage2 /
 RUN /bin/docker-postgres-init-devdb
 
 CMD /bin/docker-postgres-dev-server

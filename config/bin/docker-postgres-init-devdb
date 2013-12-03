@@ -2,10 +2,10 @@
 
 set -e
 
-/etc/init.d/postgresql start
+service postgresql start
 
-su postgres -c "createuser -s postgresdev"
-su postgres -c "psql -c \"ALTER ROLE postgresdev PASSWORD 'postgresdev'\""
-su postgres -c "createdb -O postgresdev -EUTF-8 postgresdev"
+su postgres -c "createuser -P -d -r -s docker"
+su postgres -c "psql -c \"ALTER ROLE docker PASSWORD 'docker'\""
+su postgres -c "createdb -O docker -EUTF-8 docker"
 
-/etc/init.d/postgresql stop
+service postgresql stop

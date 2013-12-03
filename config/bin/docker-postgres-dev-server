@@ -5,17 +5,17 @@ set -e
 echo "----------------------------------------------------------------"
 echo "PostgreSQL 9.3 Development Docker Container"
 echo
-echo "Username: postgresdev"
-echo "Password: postgresdev"
-echo "Database: postgresdev"
+echo "Username: docker"
+echo "Password: docker"
+echo "Database: docker"
 echo
 echo "Connect with psql:"
-echo "  psql -h localhost -p <port> -U postgresdev -d postgresdev"
+echo "  psql -h localhost -p <port> -U docker -d docker"
 echo
 echo "Find the mapped <port> with Docker:"
 echo " docker ps"
 echo "----------------------------------------------------------------"
 
-/etc/init.d/postgresql start
+service postgresql start
 
 tail -f /var/log/postgresql/postgresql-9.3-main.log
