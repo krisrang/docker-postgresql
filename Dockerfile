@@ -23,5 +23,6 @@ RUN su postgres --command "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
 ADD config-stage2 /
 RUN /bin/docker-postgres-init-devdb
 
-CMD /bin/docker-postgres-dev-server
+
 EXPOSE 5432
+CMD /bin/docker-postgres-dev-server
