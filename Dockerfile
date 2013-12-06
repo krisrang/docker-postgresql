@@ -12,17 +12,10 @@ RUN apt-key add /tmp/pgdg-apt-key.asc
 RUN apt-get update
 RUN apt-get install -y pgdg-keyring postgresql-9.3 postgresql-contrib-9.3 pwgen
 
-# Create data dir
 RUN service postgresql stop
-RUN mkdir -p /data/main
-RUN chown postgres:postgres /data/*
-RUN chmod 700 /data/main
-RUN su postgres --command "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
-
-# Create user
 ADD config-stage2 /
-RUN /bin/docker-postgres-init-devdb
-
 
 EXPOSE 5432
-CMD /bin/docker-postgres-dev-server
+VOLUME ["/data/main"]
+
+CMD /bin/docker-postgres-server

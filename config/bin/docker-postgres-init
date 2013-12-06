@@ -2,6 +2,10 @@
 
 set -e
 
+chmod 700 /data/main
+chown postgres:postgres /data/main
+su postgres --command "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
+
 service postgresql start
 
 su postgres -c "createuser -P -d -r -s docker"
