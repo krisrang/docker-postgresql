@@ -11,7 +11,7 @@ if [ ! -e /data/main/bootstrapped ]; then
   status "Bootstrapping PostgreSQL installation..."
 
   status "Initializing PostgreSQL root directory at /data/main"
-  sh -c 'sleep 5 && /bin/docker-postgres-init' &
+  /bin/docker-postgres-init
 
   touch /data/main/bootstrapped
 else
