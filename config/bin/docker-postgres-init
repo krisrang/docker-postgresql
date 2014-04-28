@@ -4,23 +4,17 @@ set -e
 
 chmod 700 /data/main
 chown postgres:postgres /data/main
+su postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
 
 cd /data/main
+rm server.crt
+rm server.key
 cp /etc/ssl/private/ssl-cert-snakeoil.key server.key
 cp /etc/ssl/certs/ssl-cert-snakeoil.pem server.crt
 chown postgres:postgres server.key 
 chown postgres:postgres server.crt 
 chmod 740 server.key
 chmod 740 server.crt
-
-su postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
-
-cd /data/main
-cp /etc/ssl/private/ssl-cert-snakeoil.key server.key
-chown postgres server.key 
-chgrp postgres server.key 
-chmod 740 server.key
-ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem server.crt
 
 service postgresql start
 
