@@ -2,10 +2,16 @@
 
 set -e
 
-chmod 640 /etc/ssl/private/ssl-cert-snakeoil.key
 chmod 700 /data/main
 chown postgres:postgres /data/main
 su postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
+
+cd /data/main
+cp /etc/ssl/private/ssl-cert-snakeoil.key server.key
+chown postgres server.key 
+chgrp postgres server.key 
+chmod 740 server.key
+ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem server.crt
 
 service postgresql start
 
