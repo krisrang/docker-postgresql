@@ -6,6 +6,9 @@ chmod 700 /data/main
 chown postgres:postgres /data/main
 su postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
 
+chgrp ssl-cert /etc/ssl/private/ssl-cert-snakeoil.key
+chgrp ssl-cert /etc/ssl/certs/ssl-cert-snakeoil.pem
+
 cd /data/main
 cp /etc/ssl/private/ssl-cert-snakeoil.key server.key
 chown postgres server.key 
