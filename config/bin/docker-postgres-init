@@ -7,8 +7,8 @@ chown postgres:postgres /data/main
 su postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /data/main"
 
 cd /data/main
-rm server.crt
-rm server.key
+rm -f server.crt
+rm -f server.key
 cp /etc/ssl/private/ssl-cert-snakeoil.key server.key
 cp /etc/ssl/certs/ssl-cert-snakeoil.pem server.crt
 chown postgres:postgres server.key 
